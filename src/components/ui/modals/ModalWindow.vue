@@ -1,14 +1,7 @@
 <template>
   <div v-if="true" class="modal-layout" @click.self="modalClose">
     <div class="modal">
-      <div v-for="(folder, index) in folders" :key="folder.id" class="folder">
-        {{ folder.name }}
-        <div v-if="folder.children.length">
-          <div v-for="(child, index) in folder.children" :key="child.id" class="children">
-            {{ child.name }}
-          </div>
-        </div>
-      </div>
+        <folder-component v-for="folder in mockFolders" :key="folder.id" :folder="folder" />
     </div>
   </div>
 </template>
@@ -16,9 +9,10 @@
 <script setup lang="ts">
 import { computed, defineProps } from "vue";
 import { useModalStore } from "@/stores/modals/modals.ts";
+import FolderComponent from '@/components/ui/FolderComponent.vue'
 import type { Folder } from "@/types/Folders.ts";
 
-defineProps<{ folders: Folder[] }>();
+defineProps<{ mockFolders: Folder[] }>();
 
 const modalStore = useModalStore();
 

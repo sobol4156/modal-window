@@ -1,5 +1,5 @@
 <template>
-  <modal-window :folders="mockFolders" />
+  <modal-window :mockFolders="mockFolders" />
   <main>
     <button-component @click="openModal()">Открыть</button-component>
   </main>
