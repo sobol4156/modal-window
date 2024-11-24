@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/185df387-b181-4850-bebc-1d73fe8865bf)
+![image](https://github.com/user-attachments/assets/94de0ff8-b35e-494a-84d5-a686146f3237)
 
 ## Project Setup
 
