@@ -1,14 +1,24 @@
 <template>
-  <div class="modal-layout">
-    <div class="modal">
-    modalwindow
+  <div v-if="isOpen" class="modal-layout">
+    <div class="modal">modalwindow</div>
   </div>
-  </div>
-
 </template>
 
+<script setup lang="ts">
+import { computed } from "vue";
+import { useModalStore } from "@/stores/modals/modals.ts";
+
+const modalStore = useModalStore();
+
+const isOpen = computed(() => {
+  return modalStore.modal.isOpen;
+});
+
+
+</script>
+
 <style scoped>
-.modal-layout{
+.modal-layout {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,10 +31,10 @@
   backdrop-filter: blur(10px);
   z-index: 100;
 }
-.modal{
+.modal {
   width: 400px;
   height: 600px;
-  background: #16171D;
+  background: #16171d;
   color: white;
   padding: 20px;
 }
