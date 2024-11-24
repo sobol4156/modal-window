@@ -1,5 +1,5 @@
 <template>
-  <button style="cursor: pointer;">
+  <button>
     <slot />
   </button>
 </template>

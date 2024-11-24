@@ -14,7 +14,7 @@ import type { Folder } from "@/types/Folders.ts";
 const modalStore = useModalStore();
 
 const openModal = () => {
-  modalStore.openModal();
+  modalStore.openModal('');
 };
 
 const mockFolders: Folder[] = [
