@@ -33,13 +33,13 @@ const emits = defineEmits(["close", "select"]);
 
 const selectedFolderId = ref<number | null>(null);
 
-const closeModal = () => emits("close");
+const closeModal = ():void => emits("close");
 
-const selectFolder = (folderId: number) => {
+const selectFolder = (folderId: number):void => {
   selectedFolderId.value = folderId;
 };
 
-const handleOk = () => {
+const handleOk = (): void => {
   emits("select", selectedFolderId.value);
   closeModal();
 };

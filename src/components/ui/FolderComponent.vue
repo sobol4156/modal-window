@@ -41,7 +41,7 @@ const emit = defineEmits(["folder-selected"]);
 
 const openFolders = ref<Set<number>>(new Set());
 
-const toggleFolder = (folder: Folder) => {
+const toggleFolder = (folder: Folder): void => {
   if (openFolders.value.has(folder.id)) {
     openFolders.value.delete(folder.id);
   } else {

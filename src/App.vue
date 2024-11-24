@@ -18,14 +18,14 @@ import ModalWindow from "@/components/ui/modals/ModalWindow.vue";
 import { ref } from "vue";
 import type { Folder } from "@/types/Folders.ts";
 
-const isModalOpen = ref(false);
+const isModalOpen = ref<boolean>(false);
 const selectedTitle = ref<null | number>(null);
 
-const openModal = () => {
+const openModal = (): void => {
   isModalOpen.value = true;
 };
 
-const closeModal = () => {
+const closeModal = (): void => {
   isModalOpen.value = false;
 };
 
@@ -45,7 +45,7 @@ const mockFolders: Folder[] = [
   { id: 5, name: "Папка 2", children: [] },
 ];
 
-const handleSelect = (folderId: number | null) => {
+const handleSelect = (folderId: number | null): void => {
   selectedTitle.value = folderId;
 };
 </script>
