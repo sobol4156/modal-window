@@ -1,7 +1,7 @@
 <template>
-  <modal-window />
-  <main class="">
-    <button-component @click="openModal()">123</button-component>
+  <modal-window  />
+  <main>
+    <button-component @click="openModal()">Открыть</button-component>
   </main>
 </template>
 
@@ -15,10 +15,8 @@ const modalStore = useModalStore();
 const openModal = () => {
   modalStore.openModal();
 };
+
+
 </script>
 
-<style scoped>
-main{
-  
-}
-</style>
+<style scoped></style>

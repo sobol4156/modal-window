@@ -9,6 +9,8 @@ export const useModalStore = defineStore('modalStore', () => {
   const openModal = () => {
     modal.value.isOpen = true
   }
-
-  return { openModal, modal }
+  const closeModal = () => {
+    modal.value.isOpen = false
+  }
+  return { openModal, modal, closeModal }
 })

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpen" class="modal-layout">
+  <div v-if="true" class="modal-layout" @click.self="modalClose">
     <div class="modal">modalwindow</div>
   </div>
 </template>
@@ -14,7 +14,11 @@ const isOpen = computed(() => {
   return modalStore.modal.isOpen;
 });
 
-
+const modalClose = () => {
+  if (isOpen) {
+    modalStore.closeModal();
+  }
+};
 </script>
 
 <style scoped>
