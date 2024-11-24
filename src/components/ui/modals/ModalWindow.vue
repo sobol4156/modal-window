@@ -28,11 +28,8 @@
 <script setup lang="ts">
 import {
   defineProps,
-  watch,
   ref,
-  computed,
   nextTick,
-  onUpdated,
   onMounted,
 } from "vue";
 import FolderComponent from "@/components/ui/FolderComponent.vue";
@@ -67,7 +64,6 @@ const selectFolder = (folderId: number): void => {
 
 onMounted(async () => {
   if (props.isOpen) {
-    // Убедимся, что элементы есть в DOM
     await nextTick();
     gsap.fromTo(".modal-layout", { opacity: 0 }, { opacity: 1, duration: 0.4 });
     gsap.fromTo(
