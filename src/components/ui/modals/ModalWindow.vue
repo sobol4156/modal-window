@@ -1,44 +1,46 @@
 <template>
-  <div v-if="modal.isOpen" class="modal-layout" @click.self="modalClose">
+  <div v-if="isOpen" class="modal-layout" @click.self="closeModal">
     <div class="modal">
       <header class="modal-header">
-        <h3>{{ modal.title }}</h3>
+        <h3>{{ title }}</h3>
       </header>
 
       <main class="modal-body">
         <folder-component
-          v-for="folder in mockFolders"
-          :key="folder.id"
-          :folder="folder"
+          :folders="mockFolders"
+          :selected-folder-id="selectedFolderId"
+          @folder-selected="selectFolder"
         />
       </main>
 
       <footer class="modal-footer">
         <button-component @click="handleOk()">Ок</button-component>
-        <button-component @click="modalClose()">Закрыть</button-component>
+        <button-component @click="closeModal()">Закрыть</button-component>
       </footer>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from "vue";
-import { useModalStore } from "@/stores/modals/modals.ts";
+import { computed, defineProps, ref } from "vue";
 import FolderComponent from "@/components/ui/FolderComponent.vue";
 import type { Folder } from "@/types/Folders.ts";
 
-defineProps<{ title: string; mockFolders: Folder[] }>();
+defineProps<{ isOpen: boolean; title: string; mockFolders: Folder[] }>();
 
-const modalStore = useModalStore();
+const emits = defineEmits(["close", "select"]);
 
-const modal = computed(() => {
-  return modalStore.modal;
-});
+const selectedFolderId = ref<number | null>(null);
 
-const modalClose = () => {
-  if (isOpen) {
-    modalStore.closeModal();
-  }
+const closeModal = () => emits("close");
+
+const selectFolder = (folderId: number) => {
+  selectedFolderId.value = folderId;
+};
+
+const handleOk = () => {
+  emits("select", selectedFolderId.value);
+  closeModal();
 };
 </script>
 

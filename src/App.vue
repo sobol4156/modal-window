@@ -1,5 +1,12 @@
 <template>
-  <modal-window :mockFolders="mockFolders" />
+  <modal-window
+    v-if="isModalOpen"
+    :isOpen="isModalOpen"
+    :title="selectedTitle"
+    :mockFolders="mockFolders"
+    @select="handleSelect"
+    @close="closeModal"
+  />
   <main>
     <button-component @click="openModal()">Открыть</button-component>
   </main>
@@ -8,13 +15,18 @@
 <script setup lang="ts">
 import ButtonComponent from "@/components/ui/ButtonComponent.vue";
 import ModalWindow from "@/components/ui/modals/ModalWindow.vue";
-import { useModalStore } from "@/stores/modals/modals.ts";
+import { ref } from "vue";
 import type { Folder } from "@/types/Folders.ts";
 
-const modalStore = useModalStore();
+const isModalOpen = ref(false);
+const selectedTitle = ref<null | number>(null);
 
 const openModal = () => {
-  modalStore.openModal('');
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
 };
 
 const mockFolders: Folder[] = [
@@ -32,6 +44,10 @@ const mockFolders: Folder[] = [
   },
   { id: 5, name: "Папка 2", children: [] },
 ];
+
+const handleSelect = (folderId: number | null) => {
+  selectedTitle.value = `Выбрана папка №${folderId}`;
+};
 </script>
 
 <style scoped></style>
