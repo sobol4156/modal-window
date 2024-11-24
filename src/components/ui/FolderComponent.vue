@@ -1,7 +1,7 @@
 <template>
   <div class="folder">
-    {{ folder.name }}
-    <div v-if="folder.children.length">
+    - {{ folder.name }}
+    <div v-if="folder.children.length" class="children">
       <folder-component v-for="child in folder.children" :key="child.id" :folder="child" />
     </div>
   </div>
@@ -13,3 +13,12 @@ import type { Folder } from "@/types/Folder.ts";
 
 defineProps<{ folder: Folder[] }>();
 </script>
+
+<style scoped>
+.folder {
+  margin-left: 10px;
+}
+.children {
+  margin-left: 10px;
+}
+</style>

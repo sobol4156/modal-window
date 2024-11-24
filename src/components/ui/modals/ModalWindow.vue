@@ -1,5 +1,5 @@
 <template>
-  <div v-if="true" class="modal-layout" @click.self="modalClose">
+  <div v-if="isOpen" class="modal-layout" @click.self="modalClose">
     <div class="modal">
         <folder-component v-for="folder in mockFolders" :key="folder.id" :folder="folder" />
     </div>
@@ -37,21 +37,20 @@ const modalClose = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: opacity(#121319, 0.5);
+  background: rgba(18, 19, 25, 0.5);
   backdrop-filter: blur(10px);
   z-index: 100;
 }
 .modal {
-  width: 400px;
-  height: 600px;
+  width: 90%;
+  max-width: 600px; 
+  height: 80%;
+  max-height: 800px; 
   background: #16171d;
   color: white;
   padding: 20px;
-}
-.folder {
-  margin-left: 20px;
-}
-.children {
-  margin-left: 20px;
+  border-radius: 10px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 </style>
