@@ -6,7 +6,7 @@
       </header>
 
       <main class="modal-body">
-        <folder-component
+        <FolderComponent
           :folders="mockFolders"
           :selected-folder-id="selectedFolderId"
           @folder-selected="selectFolder"
@@ -14,8 +14,8 @@
       </main>
 
       <footer class="modal-footer">
-        <button-component @click="handleOk()">Ок</button-component>
-        <button-component @click="closeModal()">Закрыть</button-component>
+        <ButtonComponent @click="handleOk()">Ок</ButtonComponent>
+        <ButtonComponent @click="closeModal()">Закрыть</ButtonComponent>
       </footer>
     </div>
   </div>
@@ -24,9 +24,10 @@
 <script setup lang="ts">
 import { computed, defineProps, ref } from "vue";
 import FolderComponent from "@/components/ui/FolderComponent.vue";
+import ButtonComponent from "@/components/ui/ButtonComponent.vue";
 import type { Folder } from "@/types/Folders.ts";
 
-defineProps<{ isOpen: boolean; title: string; mockFolders: Folder[] }>();
+defineProps<{ isOpen: boolean; title: number | null; mockFolders: Folder[] }>();
 
 const emits = defineEmits(["close", "select"]);
 

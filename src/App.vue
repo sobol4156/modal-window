@@ -1,5 +1,5 @@
 <template>
-  <modal-window
+  <ModalWindow
     v-if="isModalOpen"
     :isOpen="isModalOpen"
     :title="selectedTitle"
