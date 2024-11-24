@@ -1,8 +1,8 @@
 <template>
   <div v-if="isOpen" class="modal-layout" @click.self="closeModal">
     <div class="modal">
-      <header class="modal-header">
-        <h3>{{ title }}</h3>
+      <header v-if="title !== null" class="modal-header">
+        <h3>{{ `ID Выбранной папки №${title}` }}</h3>
       </header>
 
       <main class="modal-body">

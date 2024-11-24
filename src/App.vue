@@ -46,7 +46,7 @@ const mockFolders: Folder[] = [
 ];
 
 const handleSelect = (folderId: number | null) => {
-  selectedTitle.value = `Выбрана папка №${folderId}`;
+  selectedTitle.value = folderId;
 };
 </script>
 
