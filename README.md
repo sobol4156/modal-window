@@ -1,4 +1,4 @@
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/185df387-b181-4850-bebc-1d73fe8865bf)
 
 ## Project Setup
 
