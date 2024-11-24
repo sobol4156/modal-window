@@ -1,8 +1,12 @@
 <template>
   <div v-if="isOpen" class="modal-layout" @click.self="closeModal">
     <div class="modal">
-      <header v-if="title !== null" class="modal-header">
-        <h3>{{ `ID Выбранной папки №${title}` }}</h3>
+      <header class="modal-header">
+        <h3 class="modal-header__title">
+          {{
+            title !== null ? `ID Выбранной папки №${title}` : "Выберите папку"
+          }}
+        </h3>
       </header>
 
       <main class="modal-body">
@@ -22,22 +26,57 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, ref } from "vue";
+import {
+  defineProps,
+  watch,
+  ref,
+  computed,
+  nextTick,
+  onUpdated,
+  onMounted,
+} from "vue";
 import FolderComponent from "@/components/ui/FolderComponent.vue";
 import ButtonComponent from "@/components/ui/ButtonComponent.vue";
 import type { Folder } from "@/types/Folders.ts";
+import gsap from "gsap";
 
-defineProps<{ isOpen: boolean; title: number | null; mockFolders: Folder[] }>();
+const props = defineProps<{
+  isOpen: boolean;
+  title: number | null;
+  mockFolders: Folder[];
+}>();
 
 const emits = defineEmits(["close", "select"]);
 
 const selectedFolderId = ref<number | null>(null);
 
-const closeModal = ():void => emits("close");
+const closeModal = async (): Promise<void> => {
+  if (props.isOpen) {
+    gsap.fromTo(".modal-layout", { opacity: 1 }, { opacity: 0, duration: 0.4 });
+    await gsap
+      .fromTo(".modal", { opacity: 1 }, { opacity: 0, y: -30, duration: 0.4 })
+      .then(() => {
+        emits("close");
+      });
+  }
+};
 
-const selectFolder = (folderId: number):void => {
+const selectFolder = (folderId: number): void => {
   selectedFolderId.value = folderId;
 };
+
+onMounted(async () => {
+  if (props.isOpen) {
+    // Убедимся, что элементы есть в DOM
+    await nextTick();
+    gsap.fromTo(".modal-layout", { opacity: 0 }, { opacity: 1, duration: 0.4 });
+    gsap.fromTo(
+      ".modal",
+      { opacity: 0.8, y: 30 },
+      { opacity: 1, y: 0, duration: 0.4 }
+    );
+  }
+});
 
 const handleOk = (): void => {
   emits("select", selectedFolderId.value);
@@ -55,9 +94,8 @@ const handleOk = (): void => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(18, 19, 25, 0.5);
-  backdrop-filter: blur(10px);
-  z-index: 100;
+  background: rgba(0, 0, 0, 0.3);
+  will-change: opacity;
 }
 .modal {
   width: 90%;
@@ -69,9 +107,14 @@ const handleOk = (): void => {
   padding: 20px;
   border-radius: 10px;
   overflow-y: auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   display: flex;
+  z-index: 100;
   flex-direction: column;
+  will-change: transform;
+}
+
+.modal-header__title{
+  font-size: 26px;
 }
 
 .modal-body {
